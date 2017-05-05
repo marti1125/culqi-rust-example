@@ -4,6 +4,7 @@
 extern crate rocket_contrib;
 extern crate rocket;
 extern crate serde_json;
+extern crate culqi;
 
 #[macro_use] extern crate serde_derive;
 
@@ -31,10 +32,12 @@ fn not_found() -> Template {
 
 #[post("/charge?<charge>")]
 fn charge(charge: NewCharge) -> JSON<String> {
-    println!("t {:?}", charge);
-    JSON(charge.token)
+    let secret_key = "sk_test_UTCQSGcXW8bCyU59";
+    let client = culqi::Client::new(&secret_key);
+    let new_charge = culqi::Charge::new("3500", "PEN", "will@me.com", &charge.token);
+    let get_charge = culqi::Charge::create(&client, &new_charge);
+    JSON(get_charge)
 }
-
 
 #[get("/")]
 fn index() -> Template {

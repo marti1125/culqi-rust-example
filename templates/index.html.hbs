@@ -44,23 +44,15 @@
               $.ajax({
                  type: 'POST',
                  url: '/charge?token='+Culqi.token.id+'&installments='+Culqi.token.metadata.installments,
-                 //data: { token: Culqi.token.id, installments: Culqi.token.metadata.installments },
                  datatype: 'json',
                  success: function(data) {
-                   resultdiv(data);
-                   /*var result = "";
-                   if(data.constructor == String){
-                       result = JSON.parse(data);
-                   }
-                   if(data.constructor == Object){
-                       result = JSON.parse(JSON.stringify(data));
-                   }
+                   var result = JSON.parse(data);
                    if(result.object === 'charge'){
                      resultdiv(result.outcome.user_message);
                    }
                    if(result.object === 'error'){
                        resultdiv(result.user_message);
-                   }*/
+                   }
                  },
                  error: function(error) {
                    resultdiv(error)
