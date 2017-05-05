@@ -43,11 +43,12 @@
               // Imprimir Token
               $.ajax({
                  type: 'POST',
-                 url: '/server.php',
-                 data: { token: Culqi.token.id, installments: Culqi.token.metadata.installments },
+                 url: '/charge?token='+Culqi.token.id+'&installments='+Culqi.token.metadata.installments,
+                 //data: { token: Culqi.token.id, installments: Culqi.token.metadata.installments },
                  datatype: 'json',
                  success: function(data) {
-                   var result = "";
+                   resultdiv(data);
+                   /*var result = "";
                    if(data.constructor == String){
                        result = JSON.parse(data);
                    }
@@ -59,7 +60,7 @@
                    }
                    if(result.object === 'error'){
                        resultdiv(result.user_message);
-                   }
+                   }*/
                  },
                  error: function(error) {
                    resultdiv(error)
