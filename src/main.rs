@@ -34,7 +34,8 @@ fn not_found() -> Template {
 fn charge(charge: NewCharge) -> JSON<String> {
     let secret_key = "sk_test_UTCQSGcXW8bCyU59";
     let client = culqi::Client::new(&secret_key);
-    let new_charge = culqi::Charge::new("3500", "PEN", "will@me.com", &charge.token);
+    let ref antifraud_details = culqi::AntifraudDetails::new("av. lima", "lima", "PE", "Will", "Aguirre", "993978969");
+    let new_charge = culqi::Charge::new_with_antifraud_details("3500", "PEN", "will@me.com", charge.installments, antifraud_details, &charge.token);
     let get_charge = culqi::Charge::create(&client, &new_charge);
     JSON(get_charge)
 }
